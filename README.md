@@ -1,4 +1,4 @@
-# Connect-4-game-
+ Connect-4-game-
 
 Game Description 
 Connect 4 is a two-player game in which the players first choose a color and then take turns 
