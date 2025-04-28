@@ -8,6 +8,7 @@ The objective of the game is to connect-four of one’s own discs of the same co
 The two players keep playing until the board is full. The winner is the player having greater number of connected-fours.
 
 #Algorithms You are required to support the following 2 algorithms as options for the AI agent: 
+
 • Minimax without alpha-beta pruning 
 
 • Minimax with alpha-beta pruning 
