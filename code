@@ -4,7 +4,7 @@ import sys
 import math
 import time
 from copy import deepcopy
-# Colors
+# Colors :
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
@@ -15,7 +15,7 @@ GRAY = (200, 200, 200)
 DARK_BLUE = (0, 0, 150)
 LIGHT_BLUE = (173, 216, 230)
 
-# Game constants
+# Game constants :
 ROW_COUNT = 6
 COLUMN_COUNT = 7
 SQUARESIZE = 100
@@ -25,7 +25,7 @@ INFO_PANEL_WIDTH = 400
 WINDOW_WIDTH = BOARD_WIDTH + INFO_PANEL_WIDTH
 WINDOW_HEIGHT = (ROW_COUNT + 1) * SQUARESIZE + 50
 
-# AI constants
+# AI constants :
 AI_PLAYER = 2
 HUMAN_PLAYER = 1
 
@@ -60,21 +60,21 @@ def winning_move(board, piece):
                 c + 3] == piece:
                 return True
 
-    # Check vertical locations for win
+    # Check vertical locations for win :
     for c in range(COLUMN_COUNT):
         for r in range(ROW_COUNT - 3):
             if board[r][c] == piece and board[r + 1][c] == piece and board[r + 2][c] == piece and board[r + 3][
                 c] == piece:
                 return True
 
-    # Check positively sloped diagonals
+    # Check positively sloped diagonals :
     for c in range(COLUMN_COUNT - 3):
         for r in range(ROW_COUNT - 3):
             if board[r][c] == piece and board[r + 1][c + 1] == piece and board[r + 2][c + 2] == piece and board[r + 3][
                 c + 3] == piece:
                 return True
 
-    # Check negatively sloped diagonals
+    # Check negatively sloped diagonals :
     for c in range(COLUMN_COUNT - 3):
         for r in range(3, ROW_COUNT):
             if board[r][c] == piece and board[r - 1][c + 1] == piece and board[r - 2][c + 2] == piece and board[r - 3][
@@ -103,32 +103,32 @@ def evaluate_window(window, piece):
 def score_position(board, piece):
     score = 0
 
-    # Score center column
+    # Score center column :
     center_array = [int(i) for i in list(board[:, COLUMN_COUNT // 2])]
     center_count = center_array.count(piece)
     score += center_count * 3
 
-    # Score horizontal
+    # Score horizontal :
     for r in range(ROW_COUNT):
         row_array = [int(i) for i in list(board[r, :])]
         for c in range(COLUMN_COUNT - 3):
             window = row_array[c:c + 4]
             score += evaluate_window(window, piece)
 
-    # Score vertical
+    # Score vertical :
     for c in range(COLUMN_COUNT):
         col_array = [int(i) for i in list(board[:, c])]
         for r in range(ROW_COUNT - 3):
             window = col_array[r:r + 4]
             score += evaluate_window(window, piece)
 
-    # Score positive sloped diagonal
+    # Score positive sloped diagonal :
     for r in range(ROW_COUNT - 3):
         for c in range(COLUMN_COUNT - 3):
             window = [board[r + i][c + i] for i in range(4)]
             score += evaluate_window(window, piece)
 
-    # Score negative sloped diagonal
+    # Score negative sloped diagonal :
     for r in range(ROW_COUNT - 3):
         for c in range(COLUMN_COUNT - 3):
             window = [board[r + 3 - i][c + i] for i in range(4)]
@@ -161,7 +161,7 @@ def minimax(board, depth, maximizingPlayer, alpha=-math.inf, beta=math.inf, use_
                 return (None, -10000000000000)
             else:  # Game is over, no more valid moves
                 return (None, 0)
-        else:  # Depth is zero
+        else:  # Depth is zero :
             return (None, score_position(board, AI_PLAYER))
 
     if maximizingPlayer:
@@ -180,7 +180,7 @@ def minimax(board, depth, maximizingPlayer, alpha=-math.inf, beta=math.inf, use_
                 if alpha >= beta:
                     break
         return column, value
-    else:  # Minimizing player
+    else:  # Minimizing player :
         value = math.inf
         column = np.random.choice(valid_locations)
         for col in valid_locations:
@@ -199,7 +199,7 @@ def minimax(board, depth, maximizingPlayer, alpha=-math.inf, beta=math.inf, use_
 
 
 def draw_board(board, screen, ai_info=None):
-    # Draw the game board
+    # Draw the game board :
     pygame.draw.rect(screen, DARK_BLUE, (0, 0, BOARD_WIDTH, WINDOW_HEIGHT))
 
     for c in range(COLUMN_COUNT):
@@ -208,7 +208,7 @@ def draw_board(board, screen, ai_info=None):
             pygame.draw.circle(screen, BLACK, (
                 int(c * SQUARESIZE + SQUARESIZE / 2), int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), RADIUS)
 
-    # Draw the pieces
+    # Draw the pieces :
     for c in range(COLUMN_COUNT):
         for r in range(ROW_COUNT):
             if board[r][c] == 1:
@@ -220,7 +220,7 @@ def draw_board(board, screen, ai_info=None):
                     int(c * SQUARESIZE + SQUARESIZE / 2), WINDOW_HEIGHT - int(r * SQUARESIZE + SQUARESIZE / 2) - 50),
                                    RADIUS)
 
-    # Draw the info panel
+    # Draw the info panel :
     pygame.draw.rect(screen, LIGHT_BLUE, (BOARD_WIDTH, 0, INFO_PANEL_WIDTH, WINDOW_HEIGHT))
 
     if ai_info:
@@ -231,7 +231,7 @@ def draw_board(board, screen, ai_info=None):
         title = title_font.render("AI Thinking Process", 1, DARK_BLUE)
         screen.blit(title, (BOARD_WIDTH + 20, 20))
 
-        # Draw a divider line
+        # Draw a divider line :
         pygame.draw.line(screen, DARK_BLUE, (BOARD_WIDTH + 10, 60), (WINDOW_WIDTH - 10, 60), 2)
 
         y_pos = 80
@@ -245,17 +245,17 @@ def draw_board(board, screen, ai_info=None):
             screen.blit(text, (BOARD_WIDTH + 20, y_pos))
             y_pos += 30
 
-        # Draw move evaluation visualization
+        # Draw move evaluation visualization :
         if "Move Evaluations:" in ai_info:
             eval_start = y_pos + 20
             eval_title = font.render("Move Evaluations:", 1, DARK_BLUE)
             screen.blit(eval_title, (BOARD_WIDTH + 20, eval_start))
 
-            # Get the evaluations
+            # Get the evaluations :
             eval_text = ai_info[ai_info.index("Move Evaluations:") + 1]
             evaluations = eval_text.split(", ")
 
-            # Draw bars for each column evaluation
+            # Draw bars for each column evaluation :
             bar_start = eval_start + 40
             for i, eval_str in enumerate(evaluations):
                 if i >= COLUMN_COUNT:
@@ -270,7 +270,7 @@ def draw_board(board, screen, ai_info=None):
                 # Normalize score for display (assuming scores between -10 and 10)
                 bar_length = min(max(score * 10, -150), 150)
 
-                # Draw bar
+                # Draw bar :
                 if bar_length >= 0:
                     pygame.draw.rect(screen, GREEN,
                                      (BOARD_WIDTH + 50 + i * 40, bar_start + 20, 20, -bar_length))
@@ -278,7 +278,7 @@ def draw_board(board, screen, ai_info=None):
                     pygame.draw.rect(screen, RED,
                                      (BOARD_WIDTH + 50 + i * 40, bar_start + 20, 20, -bar_length))
 
-                # Draw column number
+                # Draw column number :
                 col_text = font.render(str(i + 1), 1, BLACK)
                 screen.blit(col_text, (BOARD_WIDTH + 50 + i * 40, bar_start + 50))
 
@@ -304,15 +304,15 @@ def draw_game_setup(screen):
     title_font = pygame.font.SysFont("Arial", 40, bold=True)
     button_font = pygame.font.SysFont("Arial", 28)
 
-    # Title
+    # Title :
     title = title_font.render("Connect Four", 1, DARK_BLUE)
     screen.blit(title, (WINDOW_WIDTH // 2 - title.get_width() // 2, 50))
 
-    # Game mode selection title
+    # Game mode selection title :
     mode_title = button_font.render("Select Game Mode:", 1, DARK_BLUE)
     screen.blit(mode_title, (WINDOW_WIDTH // 2 - mode_title.get_width() // 2, 120))
 
-    # Buttons
+    # Buttons :
     button_width, button_height = 300, 60
     button_x = WINDOW_WIDTH // 2 - button_width // 2
 
@@ -321,7 +321,7 @@ def draw_game_setup(screen):
     cvh_button = pygame.Rect(button_x, 340, button_width, button_height)
     cvc_button = pygame.Rect(button_x, 420, button_width, button_height)
 
-    # Draw buttons
+    # Draw buttons :
     buttons = []
     buttons.append(draw_button(screen, hvh_button, "Human vs Human", button_font, BLUE, DARK_BLUE))
     buttons.append(draw_button(screen, hvc_button, "Human vs AI", button_font, BLUE, DARK_BLUE))
@@ -345,7 +345,7 @@ def draw_game_setup(screen):
                 elif buttons[3]:
                     return "cvc", select_ai_difficulty(screen)
 
-        # Update button hover effects
+        # Update button hover effects :
         buttons = []
         buttons.append(draw_button(screen, hvh_button, "Human vs Human", button_font, BLUE, DARK_BLUE))
         buttons.append(draw_button(screen, hvc_button, "Human vs AI", button_font, BLUE, DARK_BLUE))
@@ -360,11 +360,11 @@ def select_ai_difficulty(screen):
     title_font = pygame.font.SysFont("Arial", 32, bold=True)
     button_font = pygame.font.SysFont("Arial", 24)
 
-    # Title
+    # Title :
     title = title_font.render("Select AI Difficulty Level", 1, DARK_BLUE)
     screen.blit(title, (WINDOW_WIDTH // 2 - title.get_width() // 2, 50))
 
-    # Buttons
+    # Buttons :
     button_width, button_height = 250, 50
     button_x = WINDOW_WIDTH // 2 - button_width // 2
 
@@ -373,14 +373,14 @@ def select_ai_difficulty(screen):
     hard_button = pygame.Rect(button_x, 270, button_width, button_height)
     expert_button = pygame.Rect(button_x, 340, button_width, button_height)
 
-    # Draw buttons
+    # Draw buttons :
     buttons = []
     buttons.append(draw_button(screen, easy_button, "Easy", button_font, GREEN, (0, 200, 0), WHITE))
     buttons.append(draw_button(screen, medium_button, "Medium", button_font, YELLOW, (200, 200, 0), BLACK))
     buttons.append(draw_button(screen, hard_button, "Hard", button_font, (255, 165, 0), (200, 100, 0), WHITE))
     buttons.append(draw_button(screen, expert_button, "Expert", button_font, RED, (200, 0, 0), WHITE))
 
-    # Difficulty descriptions
+    # Difficulty descriptions:
     desc_font = pygame.font.SysFont("Arial", 16)
     descriptions = [
         "Depth: 2 - Basic AI with limited lookahead",
@@ -426,23 +426,23 @@ def select_ai_algorithm(screen, depth):
     button_font = pygame.font.SysFont("Arial", 24)
     desc_font = pygame.font.SysFont("Arial", 18)
 
-    # Title
+    # Title :
     title = title_font.render("Select AI Algorithm", 1, DARK_BLUE)
     screen.blit(title, (WINDOW_WIDTH // 2 - title.get_width() // 2, 50))
 
-    # Buttons
+    # Buttons :
     button_width, button_height = 300, 60
     button_x = WINDOW_WIDTH // 2 - button_width // 2
 
     minimax_button = pygame.Rect(button_x, 150, button_width, button_height)
     alphabeta_button = pygame.Rect(button_x, 250, button_width, button_height)
 
-    # Draw buttons
+    # Draw buttons :
     buttons = []
     buttons.append(draw_button(screen, minimax_button, "Minimax", button_font, BLUE, DARK_BLUE))
     buttons.append(draw_button(screen, alphabeta_button, "Alpha-Beta Pruning", button_font, BLUE, DARK_BLUE))
 
-    # Algorithm descriptions
+    # Algorithm descriptions :
     minimax_desc = [
         "Standard Minimax algorithm",
         "Evaluates all possible moves",
@@ -476,7 +476,7 @@ def select_ai_algorithm(screen, depth):
                 elif buttons[1]:
                     return {"depth": depth, "use_alpha_beta": True}
 
-        # Update button hover effects
+        # Update button hover effects :
         buttons = []
         buttons.append(draw_button(screen, minimax_button, "Minimax", button_font, BLUE, DARK_BLUE))
         buttons.append(draw_button(screen, alphabeta_button, "Alpha-Beta Pruning", button_font, BLUE, DARK_BLUE))
@@ -489,7 +489,7 @@ def main():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("Enhanced Connect Four")
 
-    # Game setup
+    # Game setup :
     game_mode, ai_settings = draw_game_setup(screen)
 
     board = create_board()
@@ -497,11 +497,11 @@ def main():
     game_over = False
     turn = 0  # 0 for player 1 (human), 1 for player 2 (human or AI)
 
-    # Font for messages
+    # Font for messages :
     myfont = pygame.font.SysFont("Arial", 60, bold=True)
     smallfont = pygame.font.SysFont("Arial", 20)
 
-    # Clear the screen
+    # Clear the screen :
     screen.fill(BLACK)
     draw_board(board, screen)
     pygame.display.update()
@@ -530,7 +530,7 @@ def main():
                 if event.type == pygame.MOUSEBUTTONDOWN and event.pos[0] < BOARD_WIDTH:
                     pygame.draw.rect(screen, BLACK, (0, 0, BOARD_WIDTH, SQUARESIZE))
 
-                    # Human move
+                    # Human move :
                     posx = event.pos[0]
                     col = int(math.floor(posx / SQUARESIZE))
 
@@ -549,20 +549,20 @@ def main():
                         turn += 1
                         turn %= 2
 
-        # AI move
+        # AI move :
         if not game_over and ((game_mode == "hvc" and turn == 1) or
                               (game_mode == "cvh" and turn == 0) or
                               (game_mode == "cvc")):
 
-            # Display thinking message
+            # Display thinking message :
             thinking_text = smallfont.render("AI is thinking...", 1, DARK_BLUE)
             screen.blit(thinking_text, (BOARD_WIDTH + 20, WINDOW_HEIGHT - 50))
             pygame.display.update()
 
-            # Get AI move with evaluation of all possible moves
+            # Get AI move with evaluation of all possible moves :
             start_time = time.time()
 
-            # First evaluate all possible moves to show in the UI
+            # First evaluate all possible moves to show in the UI :
             valid_locations = get_valid_locations(board)
             evaluations = []
             for col in valid_locations:
@@ -572,7 +572,7 @@ def main():
                 score = score_position(temp_board, AI_PLAYER if (turn == 1 or game_mode == "cvc") else HUMAN_PLAYER)
                 evaluations.append(f"{col}: {score}")
 
-            # Then get the actual move using minimax
+            # Then get the actual move using minimax :
             col, minimax_score = minimax(
                 board,
                 ai_settings["depth"],
@@ -583,7 +583,7 @@ def main():
             thinking_time = time.time() - start_time
 
             if is_valid_location(board, col):
-                # Prepare AI info to display
+                # Prepare AI info to display :
                 ai_info = [
                     f"AI Player: {'Yellow' if turn == 1 else 'Red'}",
                     f"Algorithm: {'Alpha-Beta' if ai_settings['use_alpha_beta'] else 'Minimax'}",
@@ -597,7 +597,7 @@ def main():
                     ", ".join(evaluations)
                 ]
 
-                pygame.time.wait(1000)  # Pause to show thinking
+                pygame.time.wait(1000)  # Pause to show thinking .
 
                 row = get_next_open_row(board, col)
                 drop_piece(board, row, col, turn + 1)
