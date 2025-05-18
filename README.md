@@ -16,17 +16,17 @@ The two players keep playing until the board is full. The winner is the player h
 
 
 
-### Code Objectives
+###  🎯Code Objectives
 **Game Implementation: Creates a fully functional Connect Four game with graphical interface**
 
-**AI Opponent: Implements an artificial intelligence player using advanced algorithms**
+## ✅ **AI Opponent: Implements an artificial intelligence player using advanced algorithms**
 
-**User Experience: Provides an interactive setup menu for game customization**
+   ✅**User Experience: Provides an interactive setup menu for game customization**
 
-**Educational Value: Demonstrates game AI concepts and minimax algorithm implementation**
+   ✅**Educational Value: Demonstrates game AI concepts and minimax algorithm implementation**
 
- ### Key Outputs and Their Significance
-**1. Interactive Game Board**
+ ### 🎯Key Outputs and Their Significance
+✅**1. Interactive Game Board**
 Visual representation of the Connect Four grid (6 rows × 7 columns)
 
 Displays player pieces (red and yellow) and empty slots
@@ -35,7 +35,7 @@ Shows current player's piece during mouse movement
 
 **Importance: Provides intuitive gameplay visualization matching physical Connect Four**
 
-**2. AI Decision Information Panel**
+✅**2. AI Decision Information Panel**
 Shows real-time AI thinking process including:
 
 Algorithm type (Minimax/Alpha-Beta)
@@ -50,7 +50,7 @@ Visual bar graph of move evaluations
 
 **Importance: Helps understand AI decision-making and learn game strategy**
 
-**3. Game Setup Interface**
+✅**3. Game Setup Interface**
 Mode selection (Human vs Human, Human vs AI, AI vs AI)
 
 Difficulty levels (Easy to Expert with depth 2-8)
@@ -59,7 +59,7 @@ Algorithm selection (Minimax vs Alpha-Beta Pruning)
 
 Importance: Allows customization of gameplay experience and AI challenge level
 
-**4. Game Outcome Display**
+✅**4. Game Outcome Display**
 Clear victory announcement for winning player
 
 Visual highlighting of winning combination
@@ -74,8 +74,8 @@ Alpha-Beta Pruning: Optimized minimax that skips irrelevant branches
 
 Position Scoring: Heuristic evaluation of board states
 
-**Game Features**
-Valid move checking
+✅**Game Features**
+✅**Valid move checking**
 
 Win condition detection (horizontal, vertical, diagonal)
 
