@@ -13,7 +13,7 @@ The two players keep playing until the board is full. The winner is the player h
 
 • Minimax with alpha-beta pruning 
 
-
+---
 
 
 ###  🎯Code Objectives
@@ -74,6 +74,7 @@ Alpha-Beta Pruning: Optimized minimax that skips irrelevant branches
 
 Position Scoring: Heuristic evaluation of board states
 
+---
 ✅**Game Features**
 
 ✅**Valid move checking**
