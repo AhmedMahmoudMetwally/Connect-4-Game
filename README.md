@@ -75,7 +75,7 @@ Alpha-Beta Pruning: Optimized minimax that skips irrelevant branches
 Position Scoring: Heuristic evaluation of board states
 
 ✅**Game Features**
-✅**Valid move checking**
+✅##**Valid move checking**
 
 Win condition detection (horizontal, vertical, diagonal)
 
