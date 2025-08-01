@@ -1,5 +1,8 @@
 # Connect-4-game
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+
+ 
 #Game Description :
 Connect 4 is a two-player game in which the players first choose a color and then take turns 
 dropping their colored discs from the top into a grid. 
